@@ -1,0 +1,56 @@
+{% extends "common_page.html" %}
+	{% block title %} About {% endblock title %}
+
+	{% block body_content %}
+    {% load static %}
+
+
+    <!-- Header Start -->
+    <div class="container-fluid hero-header bg-light py-5 mb-5">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 mb-3 animated slideInDown">Services</h1>
+                    <nav aria-label="breadcrumb" class="animated slideInDown">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Services</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 text-center animated fadeIn">
+                    <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;" src="{% static 'img/hero-2.png' %}" alt="Illustration showing services">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-6">Services</h1>
+                <p class="text-primary fs-5 mb-5">Buy, Sell And Exchange Cryptocurrency</p>
+            </div>
+            <div class="row g-4">
+                {% for service in services %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter0|add:'1'|divisibleby:'2'|yesno:'0.3s,0.1s,0.5s' }}">
+                    <div class="service-item bg-light p-5">
+                        <img class="img-fluid mb-4" src="{% static service.icon %}" alt="{{ service.title }} icon">
+                        <h5 class="mb-3">{{ service.title }}</h5>
+                        <p>{{ service.description }}</p>
+                        <a href="{{ service.url }}">Read More <i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+{% endblock body_content %}
+

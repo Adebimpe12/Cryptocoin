@@ -1,0 +1,52 @@
+{% extends "common_page.html" %}
+    {% block title %} Sign in{% endblock title %}
+    
+    {% block body_content %}
+        <div class="section main-section mt-5">
+            theis 
+        </div>
+        <div class="mt-5">
+            <div class='row'>
+            <div class='col-3'></div>
+            <div class='col-md-6 col-12 col-offset-3'>
+                <p><span class="date text-pink text-size-30px mt-5">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{message}}
+                        {% endfor %}
+                    {% endif %}</span>
+                </p>
+                <form method="post" class="mt-4" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% load bootstrap %}
+
+                    {{user_form|bootstrap_horizontal:'col-lg-6'}}
+                    {% if request.user.is_superuser %}
+
+                        {{profile_form|bootstrap_horizontal:'col-lg-6'}}
+
+                    {% else %}
+
+                        {{profile_form.address|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.phone|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.date_of_birth|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.gender|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.state|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.nationality|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.profile_passport|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.marital_status|bootstrap_horizontal:'col-lg-6'}}
+                        {{profile_form.next_of_kin|bootstrap_horizontal:'col-lg-6'}}
+
+                    {% endif %}
+
+                    <div class='d-flex justify-content-center'>
+                    <input class="bc-white mt-2 ml-2 me-3 loginbutton" type="submit" value="Update">
+                    
+                </form>  
+                
+            </div>
+            </div>
+            <div class='col-3'></div> 
+            </div>
+        </div>
+    {% endblock body_content %}

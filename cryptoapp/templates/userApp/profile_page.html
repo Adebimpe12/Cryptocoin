@@ -1,0 +1,199 @@
+{% extends "common_page.html" %}
+
+{% block title %}Profile page {% endblock title %}
+
+{% block body_content %}
+        <div class="section main-section mt-5">
+            theis 
+
+            
+        </div>
+        <div>
+            <div class='row'>
+            <div class='col-3'></div>
+            <div class='col-md-6 col-12 col-offset-3'>
+                <p><span class="date text-pink text-size-30px mt-5">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{message}}
+                        {% endfor %}
+                    {% endif %}</span>
+                </p>
+                    {% if user_profile %}
+
+                        {% for profile in user_profile %}
+                        <div class="card bg-dark">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span class="icon"><i class="mdi mdi-account"></i></span>
+                                    {% if profile.staff == 1 %}
+                                        Staff's Personal Profile
+                                    {% else %}
+                                        Customer's Personal Profile
+                                    {% endif %}
+                                    
+                                </p>
+                            </header>
+                            <div class="field">
+                            <p class="card-header-title">
+                                <span class="icon"><i class="mdi mdi-account"></i></span>
+                                {% if profile.staff == 1 %}Staff ID: {% else %} Customer ID: {% endif %} Music{{profile.user_id}} <hr>
+                                Username: {{profile.user.username}}
+                            </p>
+                            </div>
+
+                                <div class="card-content">
+                                {% if profile.profile_passport %}
+                                    <div class="image w-30 h-10 mx-auto">
+                                        <img src="{{profile.profile_passport.url}}" alt="{{profile.user.username}}" class="rounded-full" height=100 width=100>
+                                    </div>
+                                {% else %}
+                                    <div class="image w-30 h-10 mx-auto">
+                                    <img src="" alt="{{profile.user.username}}" class="rounded-full">
+                                    </div>
+                                {% endif %}
+                            <hr>
+                            <div class="field">
+                                <label class="label">Name</label>
+                                <div class="control">
+                                {{profile.user.first_name}} {{profile.user.last_name}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <label class="label">E-mail</label>
+                                <div class="control">
+                                {{profile.user.email}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <label class="label">Phone</label>
+                                <div class="control">
+                                    {{profile.phone}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <label class="label">Date of birth</label>
+                                <div class="control">
+                                {{profile.date_of_birth}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <label class="label">Marital status</label>
+                                <div class="control">
+                                {{profile.marital_status}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <label class="label">Adress</label>
+                                <div class="control">
+                                {{profile.address}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <label class="label">State</label>
+                                <div class="control">
+                                {{profile.state}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <label class="label">Nationality</label>
+                                <div class="control">
+                                {{profile.nationality}}
+                                </div>
+                            </div>
+                            <hr>
+                            {% if request.user.is_staff or request.user.is_superuser %}
+                                <div class="field">
+                                    <label class="label">Position</label>
+                                    <div class="control">
+                                    {{profile.position}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="field">
+                                    <label class="label">Department</label>
+                                    <div class="control">
+                                    {{profile.department}}
+                                    </div>
+                                </div>
+                                <hr>
+                                {% if profile.particulars %}
+                                    <div class="field">
+                                        <label class="label">Particulars</label>
+                                        <div class="control">
+                                        {{profile.particulars}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endif %}
+                                {% endif %}
+
+                                {% if profile.means_of_identity %}
+                                    <div class="field">
+                                        <label class="label">Means of Identity</label>
+                                        <div class="control">
+                                        {{profile.means_of_identity}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endif %}
+                                <div class="field">
+                                    <label class="label">Status</label>
+                                    <div class="control">
+                                    {{profile.status}}
+                                    </div>
+                                </div>
+                                <hr>
+                            
+                            <div class="field">
+                                <label class="label">Next of kin</label>
+                                <div class="control">
+                                {{profile.next_of_kin}}
+                                </div>
+                            </div>
+                            <hr>
+                            {% if request.user.is_superuser or not request.user.is_staff %}
+                                <div class="field">
+                                <div class="control">
+                                    <a href="{% url 'edit_profile' profile.user_id %}">
+                                    <button type="submit" class="button green">
+                                    Edit Account
+                                    </button>
+                                    </a>
+                                    
+                                    <a href="{% url 'deactivate_profile' profile.user_id %}">
+                                        <button type="submit" class="button red">
+                                            {% if profile.user.is_active == 1 %}
+                                                Deactivate
+                                            {% else %}
+                                                Activate
+                                            {% endif %}
+                                        </button>
+                                    </a>
+                                    
+                                </div>
+                                </div>
+                            {% endif %}
+                            </div>
+                        </div>
+                        </div>
+
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+            </div>
+            </div>
+            <div class='col-3'></div> 
+            </div>
+        </div>
+
+        
+{% endblock body_content %}
